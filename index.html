@@ -3,39 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automatización & Tableros para PyMEs</title>
+<title>OptiData - Automatización & Tableros</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; padding: 40px; background:#fafafa; color:#333; }
-.container { max-width: 700px; margin: auto; }
-h1 { font-size: 2.2rem; margin-bottom: 10px; }
-h2 { font-size: 1.4rem; margin-top: 40px; }
-p { line-height: 1.6; }
-button { margin-top: 30px; padding: 14px 28px; background: #111; color: #fff; border: none; cursor: pointer; border-radius: 6px; font-size: 1rem; }
-button:hover { background: #444; }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        background: url('bg.png') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .overlay {
+        background: rgba(0,0,0,0.55);
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        padding: 40px;
+        box-sizing: border-box;
+    }
+
+    .container {
+        max-width: 800px;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+        font-weight: 700;
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        font-weight: 300;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 14px 30px;
+        background: #00aaff;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .btn:hover {
+        background: #0088cc;
+    }
+
+    @media (max-width: 600px) {
+        h1 { font-size: 2rem; }
+        p { font-size: 1rem; }
+    }
 </style>
 </head>
+
 <body>
-<div class="container">
-<h1>Automatización & Tableros para PyMEs</h1>
-<p>Te ayudo a dejar el caos del Excel y ordenar tu operación: compras, ventas y stock en un solo lugar.</p>
+<div class="overlay">
+    <div class="container">
+        <h1>Automatización & Tableros para PyMEs</h1>
+        <p>Dejá el Excel y el caos operativo.  
+        Ordenamos tus procesos de compras, ventas y stock en un tablero único  
+        para que puedas tomar decisiones con claridad.</p>
 
-<h2>Qué hago</h2>
-<p>- Conecto tus sistemas para que la información fluya sola.<br>
-- Creo un tablero claro para toma de decisiones.<br>
-- Capacito a tu equipo y dejo todo funcionando.</p>
-
-<h2>Ideal para empresas que</h2>
-<p>- Venden productos<br>
-- Manejan inventario<br>
-- Sienten que Excel y WhatsApp ya no alcanzan</p>
-
-<h2>Agendá una Auditoría Gratuita (20 min)</h2>
-<p>Charlamos sobre cómo está tu proceso hoy y qué se puede mejorar.</p>
-
-<a href="https://wa.me/5491154107669?text=Hola%20%F0%9F%91%8B%20Vengo%20desde%20tu%20web.%20Me%20interesa%20ordenar%20mi%20proceso%20de%20compras%2C%20ventas%20o%20stock.%20%C2%BFCoordinamos%20una%20auditor%C3%ADa%20de%2020%20min%3F" target="_blank">
-<button>Agendar por WhatsApp</button>
-</a>
-
+        <a class="btn" href="https://wa.me/5491154107669?text=Hola%20%F0%9F%91%8B%20Vengo%20desde%20tu%20web.%20Quiero%20coordinar%20la%20auditor%C3%ADa%20gratuita%20de%2020%20min." target="_blank">
+            Solicitar Auditoría Gratis (20 min)
+        </a>
+    </div>
 </div>
 </body>
 </html>
