@@ -1,83 +1,243 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OptiData - Automatización & Tableros</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OptiData — Automatización & Tableros para PyMEs</title>
+<meta name="description" content="Automatizamos procesos y diseñamos tableros claros para que tu PyME deje el caos del Excel y tome decisiones con datos. Auditoría gratuita de 20 minutos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23000%22/><text x=%2250%25%22 y=%2257%25%22 font-size=%2270%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%2C%20sans-serif%22>OD</text></svg>">
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        color: #fff;
-        background: url('bg.png') no-repeat center center fixed;
-        background-size: cover;
-    }
+  :root{
+    --bg:#0b0f14;
+    --card: rgba(255,255,255,.10);
+    --stroke: rgba(255,255,255,.16);
+    --text:#e9eef5;
+    --muted:#c7d0dc;
+    --brand:#1a73e8;      /* azul acento */
+    --brand-2:#0d57c6;    /* hover */
+    --ok:#10b981;
+    --warn:#f59e0b;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text); background:var(--bg);
+    line-height:1.55;
+  }
+  /* HERO ---------------------------------------------------- */
+  .hero{
+    position:relative; min-height:92vh; display:grid; place-items:center;
+    background: url('bg.png') center/cover no-repeat fixed;
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(80% 60% at 50% 20%, rgba(0,0,0,.25), rgba(0,0,0,.65) 60%, rgba(0,0,0,.8));
+  }
+  .hero-inner{
+    position:relative; z-index:1; width:min(1100px,92vw); margin:auto;
+    display:grid; gap:28px; grid-template-columns: 1.1fr .9fr;
+  }
+  .card{
+    background: var(--card);
+    border:1px solid var(--stroke);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius:16px; padding:28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .kicker{letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-size:.82rem}
+  h1{margin:.25rem 0 0; font-size: clamp(2rem, 4.3vw, 3.2rem); line-height:1.1}
+  .lead{font-size: clamp(1rem, 1.7vw, 1.15rem); color:var(--muted)}
+  .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+  .badge{
+    font-size:.82rem; padding:6px 10px; border-radius:999px; border:1px solid var(--stroke); background:rgba(0,0,0,.25)
+  }
+  .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 18px; border-radius:10px; text-decoration:none; font-weight:700;
+  }
+  .btn-primary{ background:var(--brand); color:#fff }
+  .btn-primary:hover{ background:var(--brand-2) }
+  .btn-ghost{ border:1px solid var(--stroke); color:var(--text); background:transparent }
+  .small{font-size:.88rem; color:var(--muted)}
 
-    .overlay {
-        background: rgba(0,0,0,0.55);
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        padding: 40px;
-        box-sizing: border-box;
-    }
+  .hero-side{
+    display:grid; gap:12px;
+  }
+  .tick{display:flex; gap:10px; align-items:flex-start}
+  .tick .icon{width:26px; height:26px; border-radius:8px; background:rgba(16,185,129,.15); border:1px solid rgba(16,185,129,.25); display:grid; place-items:center; color:var(--ok); font-weight:900}
+  .tick p{margin:0}
 
-    .container {
-        max-width: 800px;
-    }
+  /* SECTIONS ------------------------------------------------ */
+  section{padding:64px 0; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00))}
+  .wrap{width:min(1100px,92vw); margin:auto}
 
-    h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-        line-height: 1.2;
-        font-weight: 700;
-    }
+  .grid-3{display:grid; gap:18px; grid-template-columns: repeat(3, 1fr)}
+  .tile{
+    background:#0e131a; border:1px solid #111821; border-radius:14px; padding:20px
+  }
+  .tile h3{margin:0 0 6px}
+  .muted{color:var(--muted)}
 
-    p {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        margin-bottom: 25px;
-        font-weight: 300;
-    }
+  .steps{counter-reset: step; display:grid; gap:18px; grid-template-columns: repeat(4, 1fr)}
+  .step{background:#0e131a; border:1px dashed #1b2735; border-radius:14px; padding:18px}
+  .step::before{
+    counter-increment: step; content: "0" counter(step);
+    font-weight:800; color:var(--brand); font-size:.95rem; letter-spacing:.08em
+  }
+  .cta-band{
+    margin-top:28px; background:linear-gradient(90deg, rgba(26,115,232,.15), rgba(16,185,129,.12));
+    border:1px solid rgba(26,115,232,.25); padding:18px; border-radius:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px
+  }
 
-    .btn {
-        display: inline-block;
-        padding: 14px 30px;
-        background: #00aaff;
-        color: #fff;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 1.1rem;
-        font-weight: 600;
-        transition: 0.2s;
-    }
+  .faq{display:grid; gap:14px}
+  details{background:#0e131a; border:1px solid #111821; border-radius:12px; padding:16px}
+  summary{cursor:pointer; font-weight:700}
 
-    .btn:hover {
-        background: #0088cc;
-    }
+  footer{padding:36px 0 48px; color:#9fb0c6; font-size:.92rem; border-top:1px solid #101620}
 
-    @media (max-width: 600px) {
-        h1 { font-size: 2rem; }
-        p { font-size: 1rem; }
-    }
+  /* RESPONSIVE --------------------------------------------- */
+  @media (max-width: 980px){
+    .hero-inner{grid-template-columns: 1fr}
+  }
+  @media (max-width: 720px){
+    .grid-3{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width: 520px){
+    .steps{grid-template-columns:1fr}
+  }
 </style>
 </head>
-
 <body>
-<div class="overlay">
-    <div class="container">
-        <h1>Automatización & Tableros para PyMEs</h1>
-        <p>Dejá el Excel y el caos operativo.  
-        Ordenamos tus procesos de compras, ventas y stock en un tablero único  
-        para que puedas tomar decisiones con claridad.</p>
 
-        <a class="btn" href="https://wa.me/5491154107669?text=Hola%20%F0%9F%91%8B%20Vengo%20desde%20tu%20web.%20Quiero%20coordinar%20la%20auditor%C3%ADa%20gratuita%20de%2020%20min." target="_blank">
-            Solicitar Auditoría Gratis (20 min)
-        </a>
+  <!-- HERO ------------------------------------------------- -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="card">
+        <div class="kicker">OptiData</div>
+        <h1>Automatización & Tableros para PyMEs</h1>
+        <p class="lead">
+          Dejá el Excel y el caos operativo. Conectamos tus sistemas y te damos un tablero único para ver
+          compras, ventas y stock con claridad — sin tareas manuales.
+        </p>
+        <div class="badges">
+          <span class="badge">Integraciones (SAP, Excel, Monday, APIs)</span>
+          <span class="badge">Implementación 2–4 semanas</span>
+          <span class="badge">Soporte incluido</span>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://wa.me/54XXXXXXXXX?text=Hola%20%F0%9F%91%8B%20Vengo%20desde%20tu%20web.%20Quiero%20coordinar%20la%20auditor%C3%ADa%20gratuita%20de%2020%20min." target="_blank">Auditoría Gratis (20 min)</a>
+          <a class="btn btn-ghost" href="#como-funciona">Cómo trabajamos</a>
+        </div>
+        <p class="small">Respuesta dentro del día. Sin compromiso.</p>
+      </div>
+
+      <div class="hero-side">
+        <div class="card tick">
+          <div class="icon">✓</div>
+          <p><strong>Datos confiables</strong> — evitamos errores de carga manual y desorden entre planillas y chats.</p>
+        </div>
+        <div class="card tick">
+          <div class="icon">✓</div>
+          <p><strong>Tiempo recuperado</strong> — automatizamos tareas repetitivas y reportes.</p>
+        </div>
+        <div class="card tick">
+          <div class="icon">✓</div>
+          <p><strong>Decisiones claras</strong> — tablero con indicadores clave y alertas.</p>
+        </div>
+      </div>
     </div>
-</div>
+  </header>
+
+  <!-- BENEFICIOS ------------------------------------------- -->
+  <section id="beneficios">
+    <div class="wrap">
+      <h2>Lo que resolvemos</h2>
+      <div class="grid-3" style="margin-top:14px">
+        <div class="tile">
+          <h3>De Excel disperso a flujo único</h3>
+          <p class="muted">Unificamos la información y eliminamos duplicados, versiones y errores.</p>
+        </div>
+        <div class="tile">
+          <h3>Indicadores en tiempo real</h3>
+          <p class="muted">Stock, ventas, compras, atrasos y márgenes en un solo tablero.</p>
+        </div>
+        <div class="tile">
+          <h3>Menos fricción operativa</h3>
+          <p class="muted">Automatizamos altas, actualizaciones, avisos y reportes periódicos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO ---------------------------------------------- -->
+  <section id="como-funciona">
+    <div class="wrap">
+      <h2>Cómo trabajamos</h2>
+      <div class="steps" style="margin-top:14px">
+        <div class="step"><h3>Auditoría 20'</h3><p class="muted">Entendemos tu proceso actual y detectamos cuellos.</p></div>
+        <div class="step"><h3>Diseño del flujo</h3><p class="muted">Definimos integraciones y tableros que vas a ver.</p></div>
+        <div class="step"><h3>Implementación</h3><p class="muted">Conectamos sistemas y dejamos reglas automáticas.</p></div>
+        <div class="step"><h3>Capacitación + soporte</h3><p class="muted">Manual breve, entrenamiento y acompañamiento inicial.</p></div>
+      </div>
+
+      <div class="cta-band">
+        <div><strong>¿Querés ver cómo quedaría en tu negocio?</strong><br><span class="muted">Coordinemos una auditoría sin costo.</span></div>
+        <a class="btn btn-primary" href="https://wa.me/54XXXXXXXXX?text=Hola%2C%20quiero%20coordinar%20la%20auditor%C3%ADa%20gratuita%20de%2020%20min." target="_blank">Hablar por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICADORES ------------------------------------------ -->
+  <section id="indicadores">
+    <div class="wrap">
+      <h2>Indicadores que vas a ver</h2>
+      <div class="grid-3" style="margin-top:14px">
+        <div class="tile"><h3>Compras & Órdenes</h3><p class="muted">Pendientes, aprobadas, tiempos y desvíos.</p></div>
+        <div class="tile"><h3>Stock & Rotación</h3><p class="muted">Existencias críticas, rotación, quiebres y sobrestock.</p></div>
+        <div class="tile"><h3>Ventas & Márgenes</h3><p class="muted">Volumen, ticket medio y rentabilidad.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ --------------------------------------------------- -->
+  <section id="faq">
+    <div class="wrap">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq" style="margin-top:14px">
+        <details>
+          <summary>¿Cuánto tarda la implementación?</summary>
+          <p class="muted">Entre 2 y 4 semanas según complejidad y herramientas actuales.</p>
+        </details>
+        <details>
+          <summary>¿Qué herramientas integran?</summary>
+          <p class="muted">Trabajamos con Excel/Google Sheets, SAP (vía OData/API), Monday.com, servicios REST y bases SQL.</p>
+        </details>
+        <details>
+          <summary>¿Hay capacitación?</summary>
+          <p class="muted">Sí, incluimos entrenamiento breve y soporte de arranque.</p>
+        </details>
+      </div>
+
+      <div class="cta-band">
+        <div><strong>Listo para ordenar la operación</strong><br><span class="muted">Te mostramos el camino en 20 minutos.</span></div>
+        <a class="btn btn-primary" href="https://wa.me/5491154107669?text=Hola%2C%20quiero%20coordinar%20la%20auditor%C3%ADa%20gratuita%20de%2020%20min." target="_blank">Agendar Auditoría</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      © <span id="y"></span> OptiData · Automatización & Tableros para PyMEs · Hecho en 🇦🇷
+    </div>
+  </footer>
+
+<script>
+  // año en footer
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
